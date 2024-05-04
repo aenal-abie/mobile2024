@@ -1,14 +1,25 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import {ToastAndroid} from 'react-native';
+import { connect } from 'react-redux';
+import { loginSuccess } from '../loginSlice';
 
 const LoginScreen = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    // Logika autentikasi disini
-    console.log('Username:', username);
-    console.log('Password:', password);
+    if(username == "admin" && password=="admin") {
+      loginSuccess(username)
+      navigation.navigate(" ")
+    } else {
+      ToastAndroid.showWithGravity(
+        'Username dan password salah',
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER,
+      );
+    }
+    
   };
 
   const handleRegister = () => {
