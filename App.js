@@ -1,6 +1,4 @@
 import React from 'react';
-import { Button, View, Text } from 'react-native';
-import { Input, Icon } from '@rneui/themed';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -11,18 +9,9 @@ import ProfileScreen from './component/profile.js';
 import LoginScreen from './component/login.js';
 import RegisterScreen from './component/register.js';
 import LocationInfoScreen from './component/info.js';
-import loginReducer from './loginSlice';
-import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
+import store from './store.js';
 export default () => {
-
-  const rootReducer = combineReducers({
-    login: loginReducer,
-    // Anda bisa menambahkan reducer lain di sini jika diperlukan
-  });
-  
-  const store = createStore(rootReducer);
-
 
   const Stack = createNativeStackNavigator();
 
