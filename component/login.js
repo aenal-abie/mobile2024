@@ -1,24 +1,25 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import {ToastAndroid} from 'react-native';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../loginSlice';
 
 const LoginScreen = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
 
   const handleLogin = () => {
-    if(username == "admin" && password=="admin") {
-      loginSuccess(username)
-      navigation.navigate(" ")
-    } else {
-      ToastAndroid.showWithGravity(
-        'Username dan password salah',
-        ToastAndroid.SHORT,
-        ToastAndroid.CENTER,
-      );
-    }
+    // if(username.toLocaleLowerCase() == "admin" && password.toLocaleLowerCase()=="admin") {
+      dispatch(loginSuccess(username));
+      navigation.navigate("Profile")
+    // } else {
+    //   ToastAndroid.showWithGravity(
+    //     'Username dan password salah',
+    //     ToastAndroid.SHORT,
+    //     ToastAndroid.CENTER,
+    //   );
+    // }
     
   };
 
