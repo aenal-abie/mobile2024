@@ -1,18 +1,28 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import {ToastAndroid} from 'react-native';
-import { useDispatch } from 'react-redux';
-import { loginSuccess } from '../loginSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginSuccess, login } from '../loginSlice';
+import { useEffect } from 'react';
 
 const LoginScreen = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
+
+  useEffect(() => {
+    if(user)
+    navigation.navigate("Profile")
+  });
+
 
   const handleLogin = () => {
     // if(username.toLocaleLowerCase() == "admin" && password.toLocaleLowerCase()=="admin") {
-      dispatch(loginSuccess(username));
-      navigation.navigate("Profile")
+      dispatch(login({username, password}));
+      console.log(user);
+      user ??  console.log("butuh navigasi")
+      //navigation.navigate("Profile")
     // } else {
     //   ToastAndroid.showWithGravity(
     //     'Username dan password salah',

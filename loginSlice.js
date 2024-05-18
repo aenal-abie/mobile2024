@@ -1,10 +1,19 @@
 // loginSlice.js
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from "axios";
 
 const initialState = {
   isLoggedIn: false,
   user: null,
 };
+
+
+export const login = createAsyncThunk('login/fetch', async (data) => {
+  console.log("createAsyncThunk eksekusi");
+  const response = await axios.post('http://103.171.84.215:9090/webhook/login', data)
+  console.log(response);
+  return response.data;
+})
 
 const loginSlice = createSlice({
   name: 'login',
@@ -19,9 +28,24 @@ const loginSlice = createSlice({
       state.user = null;
     },
   },
+
+  extraReducers: builder => {
+    builder
+      .addCase(login.pending, (state, action) => {
+        console.log("pending")
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        console.log(action)
+        state.user = action.payload.name;
+        console.log("Sukses");
+      })
+      .addCase(login.rejected, (state, action) => {
+        console.log("Gagal");
+      })
+  }
+
 });
 
 export const { loginSuccess, logout } = loginSlice.actions;
-export const userLoginData = (state) => state.login;
 
 export default loginSlice.reducer;
