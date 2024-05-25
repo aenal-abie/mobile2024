@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import {ToastAndroid} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginSuccess, login } from '../loginSlice';
+import { loginSuccess, login } from '../slices/loginSlice';
 import { useEffect } from 'react';
 
 const LoginScreen = ({navigation}) => {
